@@ -1,0 +1,7 @@
+{:navgroup: .navgroup}
+{:topicgroup: .topicgroup}
+
+{: .toc subcollection="hyper-protect-dbaas" audience="cli" href="/docs/dbaas-cli-plugin/dbaas_cli.html" path="dbaas-cli-plugin"}
+IBM Cloud Hyper Protect DBaaS CLI reference
+
+    dbaas_cli.md
