@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-18"
 
 keywords: commands, cluster resource, CLI plugin
 
