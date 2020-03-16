@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-06-10"
+lastupdated: "2019-12-20"
 
 keywords: commands, cluster resource, CLI plugin
 
@@ -19,11 +19,10 @@ subcollection: dbaas-cli-plugin
 {:note: .note}
 {:important: .important}
 
-
 # {{site.data.keyword.cloud_notm}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in
 {: #dbaas_cli_plugin}
 
-Use the {{site.data.keyword.cloud}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in to create, delete, and display information about databases and users, to show details about clusters, to start and stop instances, and to list and download log files.
+Use the {{site.data.keyword.cloud}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in to show information about your cluster, databases, users, and nodes, and to list and download log files.
 {:shortdesc}
 
 ## Prerequisites
@@ -31,8 +30,8 @@ Use the {{site.data.keyword.cloud}} {{site.data.keyword.ihsdbaas_full}} CLI plug
 
 - Install the [{{site.data.keyword.cloud_notm}} CLI](/docs/cli?topic=cloud-cli-getting-started). {{site.data.keyword.cloud_notm}} CLI requires Java SDK 1.7.0. The prefix for running commands by using the {{site.data.keyword.cloud_notm}} CLI is `ibmcloud`. In the terminal, you are notified when updates to the `ibmcloud` CLI and plug-ins are available. Be sure to keep your CLI up-to-date so that you can use all the available commands and flags.
 
-- Install the {{site.data.keyword.cloud_notm}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in. You can see [Installing the DBaaS CLI plug-in](/docs/services/hyper-protect-dbaas/dbaasplugin_install.html#dbaas_plugin_install) for reference. If you want to view the current version of your {{site.data.keyword.cloud_notm}} {{site.data.keyword.ihsdbaas_full}}
-CLI plugin, run `ibmcloud plugin show dbaas-cli`.
+- Install the {{site.data.keyword.cloud_notm}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in. See [Installing the {{site.data.keyword.ihsdbaas_mongodb_full}} CLI plug-in](/docs/services/hyper-protect-dbaas-for-mongodb?topic=hyper-protect-dbaas-for-mongodb-install-dbaas-cli-plugin) or [Installing the {{site.data.keyword.ihsdbaas_postgresql_full}} CLI plug-in](/docs/services/hyper-protect-dbaas-for-postgresql?topic=hyper-protect-dbaas-for-postgresql-install-dbaas-cli-plugin) for detailed instructions. If you want to view the current version of your {{site.data.keyword.ihsdbaas_full}}
+CLI plug-in, run `ibmcloud plugin show dbaas-cli`.
 
 ## CLI plug-in usage command
 {: #plugin_use}
@@ -46,7 +45,6 @@ This command displays a list of DBaaS commands.
 ibmcloud help dbaas
 ```
 {: pre}
-
 
 ## Cluster command
 {: #cluster_cmds}
@@ -63,55 +61,12 @@ ibmcloud dbaas cluster-show <resource_name>
 
 **Command options**
 
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource. To find the resource name, use the {{site.data.keyword.cloud_notm}} command `ibmcloud resource service-instances`.</dd>
-</dl>
+- *resource_name*
 
-## Database commands
+  The name of the cluster resource. To find the resource name, use the {{site.data.keyword.cloud_notm}} command `ibmcloud resource service-instances`.
+
+## Database command
 {: #db_cmds}
-
-### `ibmcloud dbaas database-create`
-{: #db_create}
-
-This command creates a database and, optionally, a collection. For {{site.data.keyword.mongodb}}, a collection must be created with the database.
-
-```
-ibmcloud dbaas database-create <resource_name> <database_name> [<collection>]
-```
-{: pre}
-
-**Command options**
-
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*database_name*</dt>
-<dd>The name of the database to create.</dd>
-<dt>*collection*</dt>
-<dd>The name of the collection to create. This option is optional for {{site.data.keyword.postgresql}}, but is required for {{site.data.keyword.mongodb}}.</dd>
-</dl>
-
-
-### `ibmcloud dbaas database-delete`
-{: #db_delete}
-
-This command deletes a database. Do not delete a database if that database is created by credential and if that credential is still in use.
-
-```
-ibmcloud dbaas database-delete <resource_name> <database_name>
-```
-{: pre}
-
-**Command options**
-
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*database_name*</dt>
-<dd>The name of the database to delete.</dd>
-</dl>
-
 
 ### `ibmcloud dbaas databases-list`
 {: #db_list}
@@ -125,75 +80,12 @@ ibmcloud dbaas databases-list <resource_name>
 
 **Command options**
 
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-</dl>
+- *resource_name*
 
+  The name of the cluster resource.
 
 ## Database User commands
 {: #user_cmds}
-
-### `ibmcloud dbaas user-create`
-{: #user_create}
-
-This command creates a database user.
-
-**For {{site.data.keyword.mongodb}}**
-
-```
-ibmcloud dbaas user-create <resource_name> <auth_db.username> <password> [<db_name> [<db_name> [...]]]
-```
-{: pre}
-
-**For {{site.data.keyword.postgresql}}**
-
-```
-ibmcloud dbaas user-create <resource_name> <username> <password> [<db_name> [<db_name> [...]]]
-```
-{: pre}
-
-**Command options**
-
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*auth_db.username*</dt>
-<dd>Specific to {{site.data.keyword.mongodb}}: The authentication database name and user name, separated by a period, to be assigned to the database user being created.</dd>
-<dt>*username*</dt>
-<dd>Specific to {{site.data.keyword.postgresql}}: The user name to be assigned to the database user being created.</dd>
-<dt>*db_name*</dt>
-<dd>(Optional)This specifies a database for which the user will have read and write access.</dd>
-</dl>
-
-
-### `ibmcloud dbaas user-delete`
-{: #user_delete}
-
-This command deletes a database user. Do not delete a database user if that database user is created by credential and if that credential is still in use.
-
-**For {{site.data.keyword.mongodb}}**
-
-```
-ibmcloud dbaas user-delete <resource_name> <auth_db.username>
-```
-{: pre}
-
-**For {{site.data.keyword.postgresql}}**
-
-```
-ibmcloud dbaas user-delete <resource_name> <username>
-```
-**Command options**
-
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*auth_db.username*</dt>
-<dd>Specific to {{site.data.keyword.mongodb}}: The authentication database name and user name, separated by a period, of the database user being deleted.</dd>
-<dt>*username*</dt>
-<dd>Specific to {{site.data.keyword.postgresql}}: The user name of the database user being deleted.</dd>
-</dl>
 
 ### `ibmcloud dbaas users-list`
 {: #user_list}
@@ -207,11 +99,9 @@ ibmcloud dbaas users-list <resource_name>
 
 **Command options**
 
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-</dl>
+- *resource_name*
 
+  The name of the cluster resource.
 
 ### `ibmcloud dbaas user-show`
 {: #user_show}
@@ -234,86 +124,22 @@ ibmcloud dbaas user-show <resource_name> <username>
 
 **Command options**
 
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*auth_db.username*</dt>
-<dd>Specific to {{site.data.keyword.mongodb}}: The authentication database name and user name, separated by a period, of the database user being shown.</dd>
-<dt>*username*</dt>
-<dd>Specific to {{site.data.keyword.postgresql}}: The user name of the database user being shown.</dd>
-</dl>
+- *resource_name*
 
+  The name of the cluster resource.
 
-## Instance commands
-{: #instance_cmds}
+- *auth_db.username*
 
-To use any of the instance commands listed here, you need to know the `instance_id`. To obtain an `instance_id`, first use the following `ibmcloud` command to list the service instance resource group names under your account, then use [`cluster_show`](#cluster_show) command to get the `instance_id`.
+  Specific to {{site.data.keyword.mongodb}}: The authentication database name and user name, separated by a period, of the database user being shown.
 
-```
-ibmcloud resource service-instances
-```
-{: pre}
+- *username*
 
+  Specific to {{site.data.keyword.postgresql}}: The user name of the database user being shown.
 
-### `ibmcloud dbaas instance-restart`
-{: #instance_restart}
+## Node command
+{: #node_cmds}
 
-This command restarts a running instance.
-
-```
-ibmcloud dbaas instance-restart <resource_name> <instance_id>
-```
-{: pre}
-
-**Command options**
-
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*instance_id*</dt>
-<dd>The ID of the instance.</dd>
-</dl>
-
-
-### ibmcloud dbaas instance-start
-{: #instance_start}
-
-This command starts a stopped instance.
-
-```
-ibmcloud dbaas instance-start <resource_name> <instance_id>
-```
-{: pre}
-
-**Command options**
-
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*instance_id*</dt>
-<dd>The ID of the instance.</dd>
-</dl>
-
-
-### `ibmcloud dbaas instance-stop`
-{: #instance_stop}
-
-This command stops an instance (a replication member of the cluster).
-
-```
-ibmcloud dbaas instance-stop <resource_name> <instance_id>
-```
-{: pre}
-
-**Command options**
-
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*instance_id*</dt>
-<dd>The ID of the instance.</dd>
-</dl>
-
+To view the information about each node, use the [`cluster_show`](#cluster_show) command.
 
 ## Log commands
 {: log_cmds}
@@ -321,7 +147,7 @@ ibmcloud dbaas instance-stop <resource_name> <instance_id>
 ### `ibmcloud dbaas log-get`
 {: #log_get}
 
-This command downloads a log file from an instance.
+This command downloads a log file from a node.
 
 ```
 ibmcloud dbaas log-get <resource_name> <instance_id> <filename>
@@ -330,19 +156,22 @@ ibmcloud dbaas log-get <resource_name> <instance_id> <filename>
 
 **Command options**
 
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*instance_id*</dt>
-<dd>The ID of the instance.</dd>
-<dt>*filename*</dt>
-<dd>The name of the log file to download. To determine the file name of the log file you want to download, use the [ibmcloud dbaas logs-list](#log_list) command.</dd>
-</dl>
+- *resource_name*
+
+  The name of the cluster resource.
+
+- *instance_id*
+
+  The ID of the node.
+
+- *filename*
+
+  The name of the log file to download. To determine the file name of the log file you want to download, use the [ibmcloud dbaas logs-list](#log_list) command.
 
 ### `ibmcloud dbaas logs-list`
 {: #log_list}
 
-This command lists all the log files on an instance. You can use any of the listed file names as input to the [ibmcloud dbaas log-get](#log_get) command.
+This command lists all the log files on a node. You can use any of the listed file names as input to the [ibmcloud dbaas log-get](#log_get) command.
 
 ```
 ibmcloud dbaas logs-list <resource_name> <instance_id>
@@ -351,9 +180,10 @@ ibmcloud dbaas logs-list <resource_name> <instance_id>
 
 **Command options**
 
-<dl>
-<dt>*resource_name*</dt>
-<dd>The name of the cluster resource.</dd>
-<dt>*instance_id*</dt>
-<dd>The ID of the instance.</dd>
-</dl>
+- *resource_name*
+
+  The name of the cluster resource.
+
+- *instance_id*
+
+  The ID of the node.
