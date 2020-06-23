@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-20"
+lastupdated: "2020-06-23"
 
 keywords: commands, cluster resource, CLI plugin
 
@@ -22,7 +22,7 @@ subcollection: dbaas-cli-plugin
 # {{site.data.keyword.cloud_notm}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in
 {: #dbaas_cli_plugin}
 
-Use the {{site.data.keyword.cloud}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in to show information about your cluster, databases, users, and nodes, and to list and download log files.
+Use the {{site.data.keyword.cloud}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in to get information about your cluster, databases, users, and nodes, and to list and download log files.
 {:shortdesc}
 
 ## Prerequisites
@@ -150,7 +150,7 @@ To view the information about each node, use the [`cluster_show`](#cluster_show)
 This command downloads a log file from a node.
 
 ```
-ibmcloud dbaas log-get <resource_name> <instance_id> <filename>
+ibmcloud dbaas log-get <resource_name> <node_id> <filename>
 ```
 {: pre}
 
@@ -160,7 +160,7 @@ ibmcloud dbaas log-get <resource_name> <instance_id> <filename>
 
   The name of the cluster resource.
 
-- *instance_id*
+- *node_id*
 
   The ID of the node.
 
@@ -174,7 +174,7 @@ ibmcloud dbaas log-get <resource_name> <instance_id> <filename>
 This command lists all the log files on a node. You can use any of the listed file names as input to the [ibmcloud dbaas log-get](#log_get) command.
 
 ```
-ibmcloud dbaas logs-list <resource_name> <instance_id>
+ibmcloud dbaas logs-list <resource_name> <node_id>
 ```
 {: pre}
 
@@ -184,6 +184,6 @@ ibmcloud dbaas logs-list <resource_name> <instance_id>
 
   The name of the cluster resource.
 
-- *instance_id*
+- *node_id*
 
   The ID of the node.
