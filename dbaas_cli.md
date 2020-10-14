@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2018, 2019
-lastupdated: "2020-06-23"
+  years: 2018, 2020
+lastupdated: "2020-10-14"
 
-keywords: commands, cluster resource, CLI plugin
+keywords: dbaas commands, cluster resource, dbaas cli plugin reference
 
 subcollection: dbaas-cli-plugin
 
@@ -28,9 +28,9 @@ Use the {{site.data.keyword.cloud}} {{site.data.keyword.ihsdbaas_full}} CLI plug
 ## Prerequisites
 {: #prerequisites_dbaas_cli_plugin}
 
-- Install the [{{site.data.keyword.cloud_notm}} CLI](/docs/cli?topic=cloud-cli-getting-started). {{site.data.keyword.cloud_notm}} CLI requires Java SDK 1.7.0. The prefix for running commands by using the {{site.data.keyword.cloud_notm}} CLI is `ibmcloud`. In the terminal, you are notified when updates to the `ibmcloud` CLI and plug-ins are available. Be sure to keep your CLI up-to-date so that you can use all the available commands and flags.
+1. Install the [{{site.data.keyword.cloud_notm}} CLI](/docs/cli?topic=cli-getting-started). {{site.data.keyword.cloud_notm}} CLI requires Java SDK 1.7.0. The prefix for running commands by using the {{site.data.keyword.cloud_notm}} CLI is `ibmcloud`. In the terminal, you're notified when updates to the `ibmcloud` CLI and plug-ins are available. Be sure to keep your CLI up-to-date so that you can use all the available commands and flags.
 
-- Install the {{site.data.keyword.cloud_notm}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in. See [Installing the {{site.data.keyword.ihsdbaas_mongodb_full}} CLI plug-in](/docs/services/hyper-protect-dbaas-for-mongodb?topic=hyper-protect-dbaas-for-mongodb-install-dbaas-cli-plugin) or [Installing the {{site.data.keyword.ihsdbaas_postgresql_full}} CLI plug-in](/docs/services/hyper-protect-dbaas-for-postgresql?topic=hyper-protect-dbaas-for-postgresql-install-dbaas-cli-plugin) for detailed instructions. If you want to view the current version of your {{site.data.keyword.ihsdbaas_full}}
+2. Install the {{site.data.keyword.cloud_notm}} {{site.data.keyword.ihsdbaas_full}} CLI plug-in. See [Installing the {{site.data.keyword.ihsdbaas_mongodb_full}} CLI plug-in](/docs/hyper-protect-dbaas-for-mongodb?topic=hyper-protect-dbaas-for-mongodb-install-dbaas-cli-plugin#dbaas_cli_instr) or [Installing the {{site.data.keyword.ihsdbaas_postgresql_full}} CLI plug-in](/docs/hyper-protect-dbaas-for-postgresql?topic=hyper-protect-dbaas-for-postgresql-install-dbaas-cli-plugin#dbaas_cli_instr) for detailed instructions. If you want to view the current version of your {{site.data.keyword.ihsdbaas_full}}
 CLI plug-in, run `ibmcloud plugin show dbaas-cli`.
 
 ## CLI plug-in usage command
@@ -83,6 +83,66 @@ ibmcloud dbaas databases-list <resource_name>
 - *resource_name*
 
   The name of the cluster resource.
+
+## Database configuration commands (for {{site.data.keyword.postgresql}} only)
+{: #db-config-cmds}
+
+### `ibmcloud dbaas configuration-show`
+{: #db-config-show}
+
+This command shows database configuration details.
+
+```
+ibmcloud dbaas configuration-show <resource_name>
+```
+{: pre}
+
+**Command options**
+
+- *resource_name*
+
+  The name of the cluster.
+
+### `ibmcloud dbaas configuration-update`
+{: #db-config-update}
+
+This command sends changes from the JSON file or JSON string to update the database configuration.
+
+```
+ibmcloud dbaas configuration-update <resource_name> [@JSON_FILE | JSON_STRING]
+```
+{: pre}
+
+**Command options**
+
+- *resource_name*
+
+  The name of the cluster.
+
+- *@JSON_FILE*
+
+  The JSON file that contains the database configuration. For example:
+  ```
+  ibmcloud dbaas configuration-update MyDBaaSIns03 @./conf.json
+  ```
+  {: codeblock}
+
+  Content in the JSON file:
+  ```
+  {
+	  "configuration":{
+	  	"max_locks_per_transaction":150,
+          "deadlock_timeout":1500,
+	  	"shared_buffers":256
+
+  	}
+  }
+  ```
+  {: codeblock}
+
+- *JSON_STRING*
+
+  The parameter changes to send to the JSON file. For example, `'{"configuration":{"max_locks_per_transaction":150}}'` (for Windows, use `"{\"configuration\": {\"max_locks_per_transaction\": 150}}"`).
 
 ## Database User commands
 {: #user_cmds}
@@ -187,3 +247,43 @@ ibmcloud dbaas logs-list <resource_name> <node_id>
 - *node_id*
 
   The ID of the node.
+
+## Task commands (for {{site.data.keyword.postgresql}} only)
+{: #task-cmds}
+
+### `ibmcloud dbaas tasks-list`
+{: #tasks-list}
+
+This command lists all the tasks that are running or recently run on a cluster.
+
+```
+ibmcloud dbaas tasks-list <resource_name>
+```
+{: pre}
+
+**Command options**
+
+- *resource_name*
+
+  The name of the cluster.
+
+### `ibmcloud dbaas task-show`
+{: #task-show}
+
+This command shows details about a task.
+
+```
+ibmcloud dbaas task-show <resource_name> <task_id>
+```
+{: pre}
+
+**Command options**
+
+- *resource_name*
+
+  The name of the cluster.
+
+- *task_id*
+
+  The ID of the task.
+  
