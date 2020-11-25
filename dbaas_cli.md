@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-11-24"
+lastupdated: "2020-11-25"
 
 keywords: dbaas commands, cluster resource, dbaas cli plugin reference
 
