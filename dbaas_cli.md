@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2018, 2020
-lastupdated: "2020-11-25"
+  years: 2018, 2021
+lastupdated: "2021-02-06"
 
 keywords: dbaas commands, cluster resource, dbaas cli plugin reference
 
@@ -146,6 +146,9 @@ ibmcloud dbaas configuration-update <resource_name> [@JSON_FILE | JSON_STRING]
 {: pre}
 
 **Command options**
+
+The [configuration parameters](/docs/hyper-protect-dbaas-for-postgresql?topic=hyper-protect-dbaas-for-postgresql-changing-configuration#available-config-settings) are all integers. Don't specify the unit in the JSON file or string.
+{: note}
 
 - *resource_name*
 
